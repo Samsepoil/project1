@@ -1,0 +1,366 @@
+@media only screen and (min-device-width: 768px)  { /*laptop view*/
+ 
+    * {
+        margin: 0 auto;
+
+    }
+
+
+    body {
+
+        width: 100%;
+        height: 200vh;
+        background-size: 1920px 1080px;
+        background-color: black;
+
+
+    }
+
+    nav { 
+
+
+        position: absolute;
+        width: 50vw;
+        margin: 0 auto;
+
+        }
+
+    nav ul li {
+
+        display: inline-block;
+        margin: 25px;
+        color: white;
+        font-size: 15px;
+        
+        }
+
+    nav ul li a {
+        
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+
+        
+    }
+
+    .websiteicon { /*Icon from USA Network's show Mr. Robot https://www.usanetwork.com/mr-robot */
+
+        width: 10%;
+        height: 150px; 
+        border: 2px solid;
+        border-radius: 40px;
+        }
+
+    .banner {
+  
+            width: auto;
+            margin: 5 auto;
+            display: row;
+            justify-content: space-around;
+            position: relative;
+            top:10%;
+            padding: 0px 0px 0px 100px;
+        }
+
+    .navbar-left {
+        text-align: left;  
+    }
+
+    .navbar-right {
+
+        padding: 0px 0px 0px 0px;
+        text-align: right;
+        left: 750px;
+
+    }
+
+   
+  
+
+    .banneritem { /* handshake taken from 
+    https://www.pinterest.com/pin/trending-gif-yes-business-deal-plan-agreed-hand-shake-lets-do-it-client-liaison--500251471103494053/ 
+    beach family taken from http://www.gauperphoto.com/blog/tag/beach+family+photos
+    field picture taken from https://www.pinterest.com/pin/566749934341175291/*/
+
+    width: 450px;
+    height: 300px; 
+    background-color: black;
+    border: 2px solid black;
+
+    }
+
+    .mainbodytext {
+        position: relative;
+        top: 225px;
+        text-align: center;
+        text-decoration: solid;
+        font-size: 27.5px;
+        color: red;
+
+    }
+
+    .mainservices {
+        position: relative;
+        text-align: center;
+        color: white;
+        padding: 5px;
+        top: 300px;
+        font-size: 22.5px;
+        margin-left: 5em;
+        margin-right: 5.5em;
+        display: flex;
+        overflow: hidden;
+    }
+
+    .serviceicons {
+        position: relative;
+        top: 350px;
+        margin-left: 8em;
+        margin-right: 8em;
+        overflow: hidden;
+    }
+
+    .mr {
+        margin-left: 3.5em;
+        margin-right: 5em;
+    }
+
+    .mrmiddle {
+        padding: 0px 0px 0px 25px;
+    }
+
+    .mrlast {
+        padding: 0px 0px 0px 60px;
+    }
+    
+    .mricon {
+        padding: 5px;
+        margin-left: 6em;
+        margin-right: 4.5em;
+        align-self: auto;
+    }
+
+
+    h1 {
+
+        position: relative;
+        text-align: center;
+        color: white;
+        top: 150px;
+        font-size: 100px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    h2 {
+        position: absolute;
+        top: 10%;
+        left: 8%;
+    }
+
+  
+    p {
+
+        color: white;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-align: center;
+
+    }
+
+    .slideshow-container { 
+        display: none;
+    }
+    
+    #slideshow {
+        display: none;
+    }
+
+    
+
+
+}
+
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 600px) /*Mobile view*/ {
+
+    body {
+
+        width: 100%;
+        height: 200vh;
+        background-size: 1920px 1080px;
+        background-color: black;
+
+
+    }
+    
+    * {
+        margin: 0 auto;
+
+    }
+
+
+  nav { 
+
+
+    position: relative;
+    width: 100vw;
+    margin: 0 auto;
+    text-align: center;  
+
+    }
+
+.navbar-left {
+    left: 50px;
+    text-align: center; 
+}
+
+.navbar-right {
+
+    width: 50vw;
+    left: 100px;
+    bottom: 350px;
+    text-align: right;
+
+}
+
+
+h2 {
+    top: 15%;
+    left: 30%;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+  
+
+nav ul li {
+
+
+    display: inline-block;
+    padding: 15px;
+    font-size: 25px;
+    color: white;
+    
+    }
+
+nav ul li a {
+    
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    
+    }
+
+    nav ul li a {
+        
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+        
+
+.websiteicon { /*Icon from USA Network's show Mr. Robot https://www.usanetwork.com/mr-robot */
+
+    width: 35%;
+    height: 350px; 
+    border: 2px solid;
+    border-radius: 40px;
+    
+        
+    
+    }
+
+.mainbodytext {
+    position: relative;
+    text-align: center;
+    text-decoration: solid;
+    top: 225px;
+    color: red;
+
+}
+
+.mainservices {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 5px;
+    top: 300px;
+    font-size: 22.5px;
+    margin-left: 5em;
+    margin-right: 5.5em;
+    display: flex;
+    overflow: hidden;
+}
+
+.serviceicons {
+    position: relative;
+    top: 350px;
+    margin-left: 12.5em;
+    margin-right: 12.5em;
+    overflow: hidden;
+}
+
+.mr {
+    margin-left: 3.5em;
+    margin-right: 1em;
+}
+
+.mrmiddle {
+    padding: 0px 0px 0px 0px;
+}
+
+.mrlast {
+    padding: 0px 0px 0px 0px;
+}
+
+.mricon {
+    padding: 2px;
+    margin-left: 2.5em;
+    margin-right: 2em;
+    align-self: auto;
+}
+
+h1 {
+
+    position: relative;
+    font-size: 100px;
+    color: white;
+  
+}
+
+p {
+    font-size: 25px;
+
+}
+
+
+.banner{
+    display: none;
+}
+
+.banneritem {
+    display: none;
+}
+
+.slideshow-container { 
+    position: relative; 
+    width: 100%; /* Adjust width as needed */ 
+    max-width: 600px; /* Max width for the slideshow */ 
+    margin: auto; 
+    overflow: hidden; 
+} 
+ 
+#slideshow { 
+    width: 100%; 
+    height: auto; /* Maintain aspect ratio */ 
+    transition: opacity 1s ease; /* Smooth transition */ 
+} 
+
+img.animated-gif {
+    width: 75px;
+    height: auto;
+}
+
+
+}
