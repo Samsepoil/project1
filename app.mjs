@@ -27,3 +27,21 @@ app.use(session({
 app.route('/', function () {
     res.sendFile('index.html');
 });
+
+
+
+//serving the application.html file
+app.get('/application', (req, res) => {
+    res.sendFile('application.html', { root: './public' });
+});
+
+// Route to handle form submission
+app.post('/submit-application', (req, res) => {
+    const { type, accountId, loanType, income, creditScore } = req.body;
+
+    // Log the received data 
+    console.log('Application Data:', { type, accountId, loanType, income, creditScore });
+
+    // Send a response back 
+    res.send('Application submitted successfully!');
+});
