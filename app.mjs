@@ -30,18 +30,18 @@ app.route('/', function () {
 
 
 
-//serving the application.html file
+//serving application.html file
 app.get('/application', (req, res) => {
     res.sendFile('application.html', { root: './public' });
 });
 
-// Route to handle form submission
+// form submission
 app.post('/submit-application', (req, res) => {
     const { type, accountId, loanType, income, creditScore } = req.body;
 
-    // Log the received data 
+    // Log received data 
     console.log('Application Data:', { type, accountId, loanType, income, creditScore });
 
-    // Send a response back 
+    // Send a response 
     res.send('Application submitted successfully!');
 });
