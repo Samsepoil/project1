@@ -1,0 +1,25 @@
+.account-summary {
+    width: 100%; 
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.account-summary td {
+    padding: 15px;
+    border: 1px solid #888; /* Grayscale border */
+    background: #2d2d2d; /* Dark gray for contrast */
+    color: white;
+    font-size: 18px;
+}
+
+/* Optional: Make it responsive */
+@media (max-width: 768px) {
+    .account-summary tr {
+        display: block;
+    }
+    .account-summary td {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
