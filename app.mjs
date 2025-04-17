@@ -7,9 +7,9 @@ import crypto from 'crypto'; // for simple encryption 'genHash' of passwords
 
 const app = express(); //assigns 'app' to express server
 
-//app.set('views', './views'); // sets views directory for express app
-//app.set('view engine', 'pug'); // sets the view engine for the express server to pug(can serve pug and html mixed)
-app.use(express.static('public', {index: 'index.html'} )); // sets the static folder to 'public'; needed to call files in html and js
+app.set('views', './views'); // sets views directory for express app
+app.set('view engine', 'html'); // sets the view engine for the express server to pug(can serve pug and html mixed)
+app.use(express.static('public')); // sets the static folder to 'public'; needed to call files in html and js
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); // Middleware to parse the body
 
@@ -24,7 +24,7 @@ app.use(session({
     resave: false
 }));
 
-app.route('/', function () {
+app.get('/', function () {
     res.sendFile('index.html');
 });
 
