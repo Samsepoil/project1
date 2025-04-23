@@ -15,6 +15,7 @@
 
     <nav class="navbar-left">
         <ul>
+            <a href="application.html" class="navmenu"><li>Credit Card/Loan Application</li></a>
             <a href="#" class="navmenu"><li>Checking</li></a>
             <a href="#" class="navmenu"><li>Savings</li></a>
             <a href="#" class="navmenu"><li>Mortgage</li></a>
