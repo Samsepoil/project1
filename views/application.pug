@@ -1,0 +1,54 @@
+doctype html
+head
+  meta(
+    content="width=device-width, initial-scale=1.0" 
+    name="viewport"
+    )
+  title Credit Card/Loan Application
+body
+  h1 Credit Card/Loan Application
+  form#applicationForm(
+    method="POST" 
+    action="/submit-application"
+    )
+    label(for="type") Select Type:
+    select#type(
+      required="" 
+      name="type"
+      )
+      option(value="credit-card") Credit Card
+      option(value="loan") Loan
+    br
+    br
+    label(for="accountId") Account ID:
+    input#accountId(
+      required="" 
+      name="accountId" 
+      type="text"
+      )
+    br
+    br
+    label(for="loanType") Loan Type:
+    input#loanType(
+      name="loanType" 
+      type="text"
+      )
+    br
+    br
+    label(for="income") Income:
+    input#income(
+      required="" 
+      name="income" 
+      type="number"
+      )
+    br
+    br
+    label(for="creditScore") Credit Score:
+    input#creditScore(
+      required="" 
+      name="creditScore" 
+      type="number"
+      )
+    br
+    br
+    button(type="submit") Submit

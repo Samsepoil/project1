@@ -51,8 +51,8 @@ app.route(`/savings`).get((req, res) => {
 
 
 //serving application.html file
-app.get('/application', (req, res) => {
-    res.sendFile('application.html', { root: './public' });
+app.route('/application').get((req, res) => {
+    res.render(`application`);
 });
 
 // form submission
