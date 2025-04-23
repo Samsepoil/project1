@@ -1,0 +1,39 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(
+      content="width=device-width, initial-scale=1.0" 
+      name="viewport"
+      )
+    title Account Login
+    link(
+      href="login-page.css" 
+      rel="stylesheet"
+      )
+    script(
+      src="login-page.js" 
+      defer=""
+      )
+  body
+    main#main-holder
+      h1#login-header Login
+      #login-error-msg-holder
+        p#login-error-msg
+          | Invalid username
+          span#error-msg-second-line and/or password
+      form#login-form
+        input#username-field.login-form-field(
+          placeholder="Username" 
+          name="username" 
+          type="text"
+          )
+        input#password-field.login-form-field(
+          placeholder="Password" 
+          name="password" 
+          type="password"
+          )
+        input#login-form-submit(
+          value="Login" 
+          type="submit"
+          )

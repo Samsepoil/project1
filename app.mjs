@@ -4,11 +4,12 @@ import qString from 'querystring';  // Import 'querystring' module
 import bodyParser from 'body-parser'; // middleware for parsing bodys of info
 import session from 'express-session'; // session middleware that allows for express sessions
 import crypto from 'crypto'; // for simple encryption 'genHash' of passwords
+import e from 'express';
 
 const app = express(); //assigns 'app' to express server
 
 app.set('views', './views'); // sets views directory for express app
-app.set('view engine', 'html'); // sets the view engine for the express server to pug(can serve pug and html mixed)
+app.set('view engine', 'pug'); // sets the view engine for the express server to pug(can serve pug and html mixed)
 app.use(express.static('public')); // sets the static folder to 'public'; needed to call files in html and js
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); // Middleware to parse the body
@@ -24,10 +25,13 @@ app.use(session({
     resave: false
 }));
 
-app.get('/', function () {
-    res.sendFile('index.html');
+app.route('/').get((req, res) => {
+    res.render('index');
 });
 
+app.get(`/login`).get((req, res) => {
+    res.render(`login`);
+});
 
 
 //serving application.html file
