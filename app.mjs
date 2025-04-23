@@ -29,8 +29,24 @@ app.route('/').get((req, res) => {
     res.render('index');
 });
 
-app.get(`/login`).get((req, res) => {
+app.route(`/login`).get((req, res) => {
     res.render(`login`);
+});
+
+app.route(`/checking`).get((req, res) => {
+    res.render(`checking`);
+});
+
+app.route(`/loans`).get((req, res) => {
+    res.render(`loans`);
+});
+
+app.route(`/mortgage`).get((req, res) => {
+    res.render(`mortgage`);
+});
+
+app.route(`/savings`).get((req, res) => {
+    res.render(`savings`);
 });
 
 
