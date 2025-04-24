@@ -1,0 +1,48 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(
+      content="width=device-width, initial-scale=1.0" 
+      name="viewport"
+      )
+    title Banking Services
+    link(
+      href="styless.css" 
+      rel="stylesheet"
+      )
+    link(
+      type="image/x-icon" 
+      rel="icon" 
+      href="favicon.ico"
+      )
+  body
+    header
+      img.websiteicon(
+        alt="Evil Corporation" 
+        height="25%" 
+        src="ecorp.png"
+        )
+      h1.fake Corp
+      nav
+        ul
+          li
+            a(href="checking.html") Checking
+          li
+            a(href="savings.html") Savings
+          li
+            a(href="loans.html") Loans
+          li
+            a(href="mortgage.html") Mortgage
+    main
+      section.loans
+        h2#loans-title Applying for a Loan?
+        p#loan-desc
+          | Be it for plans big or small, planned or unplanned,
+          |   we here at E Corp will hear you out, and more often than not, back
+          |   you up! Schedule a visit with us today!
+      div
+        a.loan-button(href="#") Apply for a Loan!
+    footer
+      p © 2025 E Corp. All rights reserved.
+    script(src="script.js")

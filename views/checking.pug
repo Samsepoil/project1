@@ -1,0 +1,56 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(
+      content="width=device-width, initial-scale=1.0" 
+      name="viewport"
+      )
+    title Checking Account | E Corp
+    link(
+      href="styless.css" 
+      rel="stylesheet"
+      )
+    link(
+      type="image/x-icon" 
+      rel="icon" 
+      href="favicon.ico"
+      )
+  body
+    header
+      img.websiteicon(
+        alt="Evil Corporation" 
+        height="25%" 
+        src="ecorp.png"
+        )
+      h1.fake Corp
+      nav
+        ul
+          li
+            a(href="checking.html") Checking
+          li
+            a(href="savings.html") Savings
+          li
+            a(href="loans.html") Loans
+          li
+            a(href="mortgage.html") Mortgage
+    main
+      section.account-summary
+        h2 Checking Account Summary
+        p
+          | Manage your everyday banking needs with ease with E-Corp! Our checking account offers secure transactions, online banking, and flexible benefits.
+        h3 Features:
+        ul
+          li No monthly fees for qualifying accounts
+          li Free online & mobile banking access
+          li Instant deposits & transfers
+          li 24/7 fraud protection
+      section.credit-section
+        h2 Credit Score & Credit Card Options
+        p
+          | Check your credit score and explore our credit card offerings for exclusive rewards and benefits.
+        .credit-links
+          a.button(href="credit-score.html") Check Your Credit Score
+          a.button(href="apply-credit-card.html") Apply for a Credit Card
+    footer
+      p © 2025 E Corp. All rights reserved.

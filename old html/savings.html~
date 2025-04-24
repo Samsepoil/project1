@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Services</title>
+    <link rel="stylesheet" href="styless.css">
+    <link  href="favicon.ico" rel="icon" type="image/x-icon"/>
+
+</head>
+<body>
+
+    <header>
+        <img src="ecorp.png"  class ="websiteicon" height="25%" alt="Evil Corporation" />
+        <h1 class="fake">Corp</h1>
+        <nav>
+            <ul>
+                <li><a href="checking.html">Checking</a></li>
+                <li><a href="savings.html">Savings</a></li>
+                <li><a href="loans.html">Loans</a></li>
+                <li><a href="mortgage.html">Mortgage</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="savings-account-summary">
+        
+                <h2>Savings Account Summary</h2>
+                <p>Set and manage your goals with an E-Corp Savings Account!</p>
+            </section>
+    </main>
+
+    <footer>
+        <p>© 2025 E Corp. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

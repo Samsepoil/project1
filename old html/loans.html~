@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Services</title>
+    <link rel="stylesheet" href="styless.css">
+    <link  href="favicon.ico" rel="icon" type="image/x-icon"/>
+
+</head>
+<body>
+
+    <header>
+        <img src="ecorp.png"  class ="websiteicon" height="25%" alt="Evil Corporation" />
+        <h1 class="fake">Corp</h1>
+        <nav>
+            <ul>
+                <li><a href="checking.html">Checking</a></li>
+                <li><a href="savings.html">Savings</a></li>
+                <li><a href="loans.html">Loans</a></li>
+                <li><a href="mortgage.html">Mortgage</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="loans">
+            <h2 id="loans-title">Applying for a Loan?</h2>
+            <p id="loan-desc">Be it for plans big or small, planned or unplanned,
+                we here at E Corp will hear you out, and more often than not, back
+                you up! Schedule a visit with us today!
+            </p>
+        </section>
+
+        <div>
+        <a href="#" class="loan-button">Apply for a Loan!</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 E Corp. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
