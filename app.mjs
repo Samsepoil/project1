@@ -29,6 +29,10 @@ app.route('/').get((req, res) => {
     res.render('index');
 });
 
+app.route(`/balance`).get((req, res) => {
+    res.render(`balance`);
+});
+
 app.route(`/login`).get((req, res) => {
     res.render(`login`);
 });
