@@ -109,13 +109,13 @@ html(lang="en")
             div.error(aria-live="polite")
           
           div.form-group
-            label(for="accountId") Account ID:
+            label(for="accountId") Account Number:
             input#accountId(
               required
               name="accountId"
               type="text"
               pattern="[A-Z0-9]{8}"
-              placeholder="Enter 8-digit Account ID"
+              placeholder="Enter 8-digit Account Number"
               aria-required="true"
               title="Please enter 8 characters (numbers and uppercase letters only)"
             )
@@ -187,7 +187,7 @@ html(lang="en")
         // Account ID validation
         const accountId = document.getElementById('accountId');
         if (!accountId.value.match(/^[A-Z0-9]{8}$/)) {
-          accountId.nextElementSibling.textContent = 'Account ID must be 8 characters (numbers and uppercase letters only)';
+          accountId.nextElementSibling.textContent = 'Account ID must be 8 characters (numbers only)';
           isValid = false;
         }
 
