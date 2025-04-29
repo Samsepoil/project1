@@ -12,8 +12,8 @@ Username: testuser
 Password: password
 
 
-We are also currently working on implementing more ARG themes, as that is a more predominat CSS function, and we want to make sure the databases work completely and well before focusing on looks and fun little interactables!
+We are also currently working on implementing more ARG themes, as that is a more predominate CSS and small script functions, and we want to make sure the databases work completely and well before focusing on looks and fun little interactables!
 
 Thanks for trying out our project!
 
-- Rad
+- Rad & Adam
