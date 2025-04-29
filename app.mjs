@@ -69,3 +69,23 @@ app.post('/submit-application', (req, res) => {
     // Send a response 
     res.send('Application submitted successfully!');
 });
+
+// Customer login route
+app.route('/customer-login')
+    .get((req, res) => {
+        res.render('customer-login');
+    })
+    .post((req, res) => {
+        const { username, password } = req.body;
+
+        if (username === "testuser" && password === "password") {
+            req.session.isLoggedIn = true;
+            req.session.username = username;
+            res.json({ success: true });
+        } else {
+            res.json({
+                success: false,
+                message: 'Invalid username or password'
+            });
+        }
+    });

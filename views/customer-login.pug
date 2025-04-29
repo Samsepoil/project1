@@ -1,0 +1,87 @@
+doctype html
+html(lang="en")
+  meta(
+    content="width=device-width, initial-scale=1.0" 
+    name="viewport"
+  )
+  head
+    title Customer Login | E Corp
+    link(
+      type="text/css" 
+      rel="stylesheet" 
+      href="project.css"
+    )
+    link(
+      type="image/x-icon" 
+      rel="icon" 
+      href="favicon.ico"
+    )
+  body.login-page
+    img.websiteicon(
+      alt="Evil Corporation" 
+      height="25%" 
+      src="ecorp.png"
+    )
+    h2#hiddenTruth vil Corporation
+    
+    div.login-container
+      h1 Customer Login
+      form#loginForm(
+        method="POST"
+        action="/customer-login"
+      )
+        div.form-group
+          label(for="username") Username:
+          input#username(
+            type="text"
+            name="username"
+            required
+          )
+        
+        div.form-group
+          label(for="password") Password:
+          input#password(
+            type="password"
+            name="password"
+            required
+          )
+        
+        div.form-actions
+          button(type="submit") Login
+          a.button-secondary(href="/") Cancel
+        
+        div#errorMessage.error-message
+
+    footer
+      p © 2025 E Corp. All rights reserved.
+
+    script.
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+          const response = await fetch('/customer-login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            window.location.href = '/dashboard'; // Redirect to dashboard on success
+          } else {
+            document.getElementById('errorMessage').textContent = data.message || 'Invalid username or password';
+          }
+        } catch (error) {
+          document.getElementById('errorMessage').textContent = 'An error occurred. Please try again.';
+        }
+      });
+
+
+//- Adam Nielsen

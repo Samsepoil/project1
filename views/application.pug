@@ -152,7 +152,7 @@ html(lang="en")
               placeholder="Enter 8-digit Account Number"
               aria-required="true"
               aria-describedby="accountIdError"
-              title="Please enter 8 characters (numbers and uppercase letters only)"
+              title="Please enter 8 characters"
             )
             div.error(
               id="accountIdError"
@@ -255,7 +255,7 @@ html(lang="en")
         // Account ID validation
         const accountId = document.getElementById('accountId');
         if (!accountId.value.match(/^[A-Z0-9]{8}$/)) {
-          const errorMessage = 'Account ID must be 8 characters (uppercase letters and numbers only)';
+          const errorMessage = 'Account ID must be 8 characters (numbers only)';
           accountId.nextElementSibling.textContent = errorMessage;
           accountId.setAttribute('aria-invalid', 'true');
           errors.push(errorMessage);
