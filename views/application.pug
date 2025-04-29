@@ -2,6 +2,10 @@ doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
+    meta(
+      name="description"
+      content="Apply for a credit card or loan with our secure online application form"
+    )
     meta(content="width=device-width, initial-scale=1.0" name="viewport")
     title Credit Card/Loan Application
     style.
@@ -65,6 +69,11 @@ html(lang="en")
         background-color: #151b60;
       }
 
+      button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+      }
+
       .button-group {
         display: flex;
         gap: 1rem;
@@ -85,6 +94,22 @@ html(lang="en")
         margin-top: 0.25rem;
       }
 
+      .error-summary {
+        border: 2px solid #dc3545;
+        border-radius: 4px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .error-summary.visible {
+        display: block;
+      }
+
+      [aria-invalid="true"] {
+        border-color: #dc3545;
+      }
+
   body
     div.form-container
       h1(role="heading" aria-level="1") Credit Card/Loan Application
@@ -93,6 +118,11 @@ html(lang="en")
         action="/submit-application"
         novalidate
       )
+        div#formErrors(
+          role="alert"
+          aria-live="polite"
+          class="error-summary"
+        )
         fieldset
           legend Application Details
           
@@ -102,37 +132,49 @@ html(lang="en")
               required
               name="type"
               aria-required="true"
+              aria-describedby="typeError"
             )
               option(value="") -- Please select an option --
               option(value="credit-card") Credit Card
               option(value="loan") Loan
-            div.error(aria-live="polite")
+            div.error(
+              id="typeError"
+              aria-live="polite"
+            )
           
           div.form-group
-            label(for="accountId") Account ID:
+            label(for="accountId") Account Number:
             input#accountId(
               required
               name="accountId"
               type="text"
               pattern="[A-Z0-9]{8}"
-              placeholder="Enter 8-digit Account ID"
+              placeholder="Enter 8-digit Account Number"
               aria-required="true"
+              aria-describedby="accountIdError"
               title="Please enter 8 characters (numbers and uppercase letters only)"
             )
-            div.error(aria-live="polite")
+            div.error(
+              id="accountIdError"
+              aria-live="polite"
+            )
           
           div.form-group
             label(for="loanType") Loan Type:
             select#loanType(
               name="loanType"
               aria-required="false"
+              aria-describedby="loanTypeError"
             )
               option(value="") -- Select if applying for loan --
               option(value="personal") Personal Loan
               option(value="auto") Auto Loan
               option(value="home") Home Loan
               option(value="business") Business Loan
-            div.error(aria-live="polite")
+            div.error(
+              id="loanTypeError"
+              aria-live="polite"
+            )
           
           div.form-group
             label(for="income") Annual Income ($):
@@ -144,8 +186,12 @@ html(lang="en")
               step="1000"
               placeholder="Enter your annual income"
               aria-required="true"
+              aria-describedby="incomeError"
             )
-            div.error(aria-live="polite")
+            div.error(
+              id="incomeError"
+              aria-live="polite"
+            )
           
           div.form-group
             label(for="creditScore") Credit Score:
@@ -157,61 +203,123 @@ html(lang="en")
               max="850"
               placeholder="Enter score between 300-850"
               aria-required="true"
+              aria-describedby="creditScoreError"
             )
-            div.error(aria-live="polite")
+            div.error(
+              id="creditScoreError"
+              aria-live="polite"
+            )
          
           div.button-group
-          button(type="submit" aria-label="Submit application") Submit
-          button.button-exit(
-            type="button" 
-            aria-label="Exit application"
-            onclick="exitApplication()"
-          ) Exit
+            button(
+              type="submit"
+              aria-label="Submit application"
+            ) Submit
+            button.button-exit(
+              type="button" 
+              aria-label="Exit application"
+              onclick="exitApplication()"
+            ) Exit
 
     script.
+      // Initial state for loan type field
+      window.addEventListener('DOMContentLoaded', function() {
+        const loanTypeGroup = document.getElementById('loanType').closest('.form-group');
+        loanTypeGroup.style.display = 'none';
+      });
+
       document.getElementById('applicationForm').addEventListener('submit', function(e) {
         e.preventDefault();
         let isValid = true;
-        const errors = document.getElementsByClassName('error');
+        const errors = [];
+        const errorSummary = document.getElementById('formErrors');
         
         // Clear previous errors
-        Array.from(errors).forEach(error => error.textContent = '');
+        errorSummary.innerHTML = '';
+        errorSummary.classList.remove('visible');
+        const errorElements = document.getElementsByClassName('error');
+        Array.from(errorElements).forEach(error => error.textContent = '');
 
         // Type validation
         const type = document.getElementById('type');
         if (!type.value) {
-          type.nextElementSibling.textContent = 'Please select an application type';
+          const errorMessage = 'Please select an application type';
+          type.nextElementSibling.textContent = errorMessage;
+          type.setAttribute('aria-invalid', 'true');
+          errors.push(errorMessage);
           isValid = false;
+        } else {
+          type.setAttribute('aria-invalid', 'false');
         }
 
         // Account ID validation
         const accountId = document.getElementById('accountId');
         if (!accountId.value.match(/^[A-Z0-9]{8}$/)) {
-          accountId.nextElementSibling.textContent = 'Account ID must be 8 characters (numbers and uppercase letters only)';
+          const errorMessage = 'Account ID must be 8 characters (uppercase letters and numbers only)';
+          accountId.nextElementSibling.textContent = errorMessage;
+          accountId.setAttribute('aria-invalid', 'true');
+          errors.push(errorMessage);
           isValid = false;
+        } else {
+          accountId.setAttribute('aria-invalid', 'false');
         }
 
         // Income validation
         const income = document.getElementById('income');
-        if (income.value < 0) {
-          income.nextElementSibling.textContent = 'Income cannot be negative';
-          isValid = false;
+        if (!income.value) {
+         const errorMessage = 'Annual income is required';
+         income.nextElementSibling.textContent = errorMessage;
+         income.setAttribute('aria-invalid', 'true');
+         errors.push(errorMessage);
+         isValid = false;
+        } else if (income.value < 0) {
+         const errorMessage = 'Income cannot be negative';
+         income.nextElementSibling.textContent = errorMessage;
+         income.setAttribute('aria-invalid', 'true');
+         errors.push(errorMessage);
+         isValid = false;
+        } else {
+         income.setAttribute('aria-invalid', 'false');
         }
 
         // Credit Score validation
         const creditScore = document.getElementById('creditScore');
         if (creditScore.value < 300 || creditScore.value > 850) {
-          creditScore.nextElementSibling.textContent = 'Credit score must be between 300 and 850';
+          const errorMessage = 'Credit score must be between 300 and 850';
+          creditScore.nextElementSibling.textContent = errorMessage;
+          creditScore.setAttribute('aria-invalid', 'true');
+          errors.push(errorMessage);
           isValid = false;
+        } else {
+          creditScore.setAttribute('aria-invalid', 'false');
         }
 
         // Show loan type validation only if loan is selected
         if (type.value === 'loan' && !document.getElementById('loanType').value) {
-          document.getElementById('loanType').nextElementSibling.textContent = 'Please select a loan type';
+          const errorMessage = 'Please select a loan type';
+          document.getElementById('loanType').nextElementSibling.textContent = errorMessage;
+          document.getElementById('loanType').setAttribute('aria-invalid', 'true');
+          errors.push(errorMessage);
           isValid = false;
+        } else {
+          document.getElementById('loanType').setAttribute('aria-invalid', 'false');
+        }
+
+        if (errors.length > 0) {
+          errorSummary.innerHTML = `
+            <h2>Please correct the following errors:</h2>
+            <ul>
+              ${errors.map(error => `<li>${error}</li>`).join('')}
+            </ul>
+          `;
+          errorSummary.classList.add('visible');
+          errorSummary.focus();
         }
 
         if (isValid) {
+          const submitButton = document.querySelector('button[type="submit"]');
+          submitButton.disabled = true;
+          submitButton.innerHTML = 'Submitting...';
           this.submit();
         }
       });
@@ -221,25 +329,25 @@ html(lang="en")
         const loanTypeGroup = document.getElementById('loanType').closest('.form-group');
         if (this.value === 'loan') {
           loanTypeGroup.style.display = 'block';
+          document.getElementById('loanType').setAttribute('aria-required', 'true');
         } else {
           loanTypeGroup.style.display = 'none';
+          document.getElementById('loanType').setAttribute('aria-required', 'false');
         }
       });
 
       function exitApplication() {
-        // Check if user is logged in (you'll need to implement this check based on your authentication system)
-        const isLoggedIn = checkUserLoginStatus(); // Replace with your actual login check
-
+        const isLoggedIn = checkUserLoginStatus();
         if (isLoggedIn) {
-            window.location.href = '/account'; // Replace with your account page URL
+          window.location.href = '/account';
         } else {
-            window.location.href = '/'; // Replace with your home page URL
+          window.location.href = '/';
         }
       }
 
-      // Example function - replace with your actual login check implementation
       function checkUserLoginStatus() {
-        // This is a placeholder - implement your actual login check here
-        // For example, you might check a session token or localStorage
         return localStorage.getItem('userToken') !== null;
       }
+
+
+//- Adam Nielsen and Fransisco Cruz
