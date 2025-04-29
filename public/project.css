@@ -378,7 +378,7 @@ img.animated-gif {
 /*Adam Nielsen*/
 
 .login-page {
-    background-color: black; /* Match your site's theme */
+    background-color: black; 
     min-height: 100vh;
 }
 
@@ -390,28 +390,28 @@ img.animated-gif {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
-    top: 200px; /* Adjust this value to move the container down */
+    top: 200px; 
 }
 
     .login-container h1 {
-        font-size: 32px; /* Smaller font size */
+        font-size: 32px; 
         margin-bottom: 30px;
-        position: static; /* Override the default position */
+        position: static; 
         top: auto;
-        color: black; /* Make text visible against white background */
+        color: black; 
     }
 
 .form-group {
     margin-bottom: 20px;
     position: relative;
-    z-index: 1; /* Ensure form elements are above other content */
+    z-index: 1; 
 }
 
     .form-group label {
         display: block;
         margin-bottom: 5px;
         font-weight: bold;
-        color: black; /* Make labels visible */
+        color: black; 
     }
 
     .form-group input {
@@ -419,7 +419,7 @@ img.animated-gif {
         padding: 8px;
         border: 1px solid #ddd;
         border-radius: 4px;
-        box-sizing: border-box; /* Include padding in width calculation */
+        box-sizing: border-box; 
     }
 
 .form-actions {
@@ -452,12 +452,12 @@ img.animated-gif {
     text-align: center;
 }
 
-/* Adjust the logo and header positioning */
+
 .login-page .websiteicon {
     position: relative;
     top: 20px;
     left: 20px;
-    width: 100px; /* Smaller logo size */
+    width: 100px; 
     height: auto;
     z-index: 1;
 }
@@ -465,6 +465,6 @@ img.animated-gif {
 .login-page h2#hiddenTruth {
     position: relative;
     top: 30px;
-    left: 130px; /* Adjust to not overlap with logo */
+    left: 130px; 
     color: white;
 }
