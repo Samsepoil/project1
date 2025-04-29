@@ -8,7 +8,8 @@ html(lang="en")
       )
     title Banking Services
     link(
-      href="styless.css" 
+      type="text/css"
+      href="project.css" 
       rel="stylesheet"
       )
     link(
@@ -23,29 +24,36 @@ html(lang="en")
         height="25%" 
         src="ecorp.png"
         )
-      h1.fake Corp
-      nav
+      h2#hiddenTruth vil Corporation
+      nav.navbar-left
         ul
-          li
-            a(href="checking.html") Checking
-          li
-            a(href="savings.html") Savings
-          li
-            a(href="loans.html") Loans
-          li
-            a(href="mortgage.html") Mortgage
-    main
+          a.navmenu(href="/index")
+            li Home 
+          a.navmenu(href="/checking")
+            li Checking
+          a.navmenu(href="/mortgage")
+            li Mortgage
+          a.navmenu(href="/loans") 
+            li Loans
+      nav.navbar-right
+        ul
+          a.login(href="#")
+            li Customer Login
+          a.login(href="/login")
+            li Admin Login
+          a.login(href="#")
+            li Customer Registration
       section.loans
-        h2#loans-title Applying for a Loan?
-        p#loan-desc
-          | Be it for plans big or small, planned or unplanned,
-          |   we here at E Corp will hear you out, and more often than not, back
-          |   you up! Schedule a visit with us today!
+        h1 Applying for a Loan?
+        p.mainbodytext
+          | Be it for plans big or small, planned or unplanned,<br>
+          | we here at E Corp will hear you out, and more often then not, back<br>
+          |   YOU up! Schedule a visit with us today!
       div
-        a.loan-button(href="#") Apply for a Loan!
+        a.loan-button(href="/application") Apply for a Loan!
     footer
       p © 2025 E Corp. All rights reserved.
     script(src="script.js")
 
 
-//- Alex and Rad Peña
+//-Alex submission; Rad Peña edits
