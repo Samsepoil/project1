@@ -30,7 +30,7 @@ var screenWidth = document.documentElement.clientWidth || window.innerWidth;
 
       setInterval(changeImage, 5000); // Change image every 5 seconds
      
-/*Rad Pena*/ 
+/*Rad Pena submission*/ 
       
   
 
