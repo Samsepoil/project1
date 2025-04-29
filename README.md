@@ -7,7 +7,8 @@ It is conneceted to a database, but currently is unusable as we are still workin
 You can still fill out an application and it is fully written to catch errors to not allow submission until all criteria is met. It will prompt with successful submission if filled out properly and submitted.
 Other than that, the other links within the left navbar work as well, but aren't completely finished in terms of CSS, as we are still deciding on a central theme concerning our CSS.
 User login also currently doesn't work for users in the DB as we're trying to figure out connecting the two databases.
-There is a test user setup to allow for successful login, but dashboard page is still incomplete so you will only be able to test login. Incorrect login will properly display login error at the moment. 
+There is a test user setup to allow for successful login, but dashboard page is still incomplete so you will only be able to test login.Incorrect login will properly display login error at the moment.
+Correct login will just lead you to an error, since there is no dashboard.pug in the views folder yet. 
 Username: testuser
 Password: password
 
