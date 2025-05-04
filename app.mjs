@@ -37,8 +37,8 @@ app.route(`/balance`).get((req, res) => {
     res.render(`balance`);
 });
 
-app.route(`/login`).get((req, res) => {
-    res.render(`login`);
+app.route(`/dashboard`).get((req, res) => {
+    res.render(`dashboard`);
 });
 
 app.route(`/checking`).get((req, res) => {
