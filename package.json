@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Banking Application ARG",
   "main": "app.mjs",
+  "type": "module",
   "dependencies": {
     "accepts": "^2.0.0",
     "body-parser": "^2.2.0",
