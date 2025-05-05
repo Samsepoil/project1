@@ -12,13 +12,13 @@ Other than that, the other links within the left navbar work as well, but aren't
 
 There are a few test users setup for use of login, dashboard view, and access to the application page.
 
-username: tyrell.wellick /n
+username: tyrell.wellick 
 password: password123
 
-username: phillip.price /n
+username: phillip.price 
 password: password123
 
-username: angela.moss  /n 
+username: angela.moss
 password: pasword123
 
 
