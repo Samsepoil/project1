@@ -95,4 +95,15 @@ app.route('/customer-login')
     });
 
       
+    app.post('/register', (req, res) => {
+        const { username, name, email, password } = req.body;
+      
+        console.log({ username, name, email, password });
+      
+        res.send('Registration successful!');
+      });
     
+      app.route('/register').get((req, res) => {
+        res.render('customer-registration');
+    });
+      
