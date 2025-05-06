@@ -1,6 +1,6 @@
 Welcome Professor!
 
-To begin this project, begin by cloning the entire repository. You will then want to run "npm install mongoose" to install mongoose for use wtih the web app. Then, run "mongorestore --db ecorp_bank" to download the databse with current data for use. Finally run node app.mjs to start the web server and connect the database. Make sure you're in the correct folder, as sometimes even I mess up and end up in the wrong one.  
+To begin this project, begin by cloning the entire repository. You will then want to run "npm install mongoose" to install mongoose for use wtih the web app. Then, run "mongorestore --db ecorp_bank dump/ecorp_bank/" to download the databse with current data for use. Finally run node app.mjs to start the web server and connect the database. Make sure you're in the correct folder, as sometimes even I mess up and end up in the wrong one.  
 
 The local address to access the site is http://localhost:1234/  
 
