@@ -9,9 +9,12 @@ html(lang="en")
         header.dashboard-header
             h1 Welcome #{user.name}
             nav.dashboard-nav
-                a(href="/") Home
-                a(href="/dashboard") Dashboard
-                a(href="/logout") Logout
+                a(href="/") 
+                    li Home
+                a(href="/dashboard") 
+                    li Dashboard
+                a(href="/logout") 
+                    li Logout
 
         main.dashboard-content
             section.account-summary

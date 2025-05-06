@@ -43,10 +43,6 @@ app.route('/').get((req, res) => {
     res.render('index');
 });
 
-app.route('/index').get((req, res) => {
-    res.render('index');
-});
-
 app.route('/balance').get((req, res) => {
     res.render('balance');
 });
@@ -57,14 +53,6 @@ app.route('/checking').get((req, res) => {
 
 app.route('/loans').get((req, res) => {
     res.render('loans');
-});
-
-app.route('/mortgage').get((req, res) => {
-    res.render('mortgage');
-});
-
-app.route('/savings').get((req, res) => {
-    res.render('savings');
 });
 
 app.route('/customer-registration').get((req, res) => {
