@@ -1,7 +1,12 @@
 doctype html
 html(lang="en")
   head
-    title Customer Registration | E Corp
+    title Customer Registration
+    link(
+      type="text/css" 
+      rel="stylesheet" 
+      href="project.css"
+      ) 
     style.
       body {
         display: flex;
@@ -74,7 +79,7 @@ html(lang="en")
       }
       
   body
-    h1 Customer Registration
+    h1.customer-reg Customer Registration
     form(action="/register" method="POST")
       div
         label(for="username") Username:

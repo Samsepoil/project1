@@ -151,6 +151,14 @@
         font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     }
 
+    h1.customer-reg  {
+        position: relative;
+        font-size: 100px;
+        color: black;
+        top: 0px; 
+    }
+    
+
     h2 {
         position: absolute;
         top: 10%;
@@ -336,6 +344,7 @@ h1 {
     color: white;
   
 }
+
 
 p {
     font-size: 25px;
