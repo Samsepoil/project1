@@ -38,6 +38,10 @@ const requireAuth = (req, res, next) => {
     }
 };
 
+app.listen(1234, async() => {
+    console.log("Server is running...");
+});
+
 //Public Routes
 app.route('/').get((req, res) => {
     res.render('index');
@@ -58,10 +62,6 @@ app.route('/loans').get((req, res) => {
 
 app.route('/savings').get((req, res) => {
     res.render('savings');
-});
-
-app.listen(1234, async () => {
-    console.log("Server is running..."); //runs if server is running successfully
 });
 
 //Protected Routes
