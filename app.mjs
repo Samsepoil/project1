@@ -67,6 +67,10 @@ app.route('/savings').get((req, res) => {
     res.render('savings');
 });
 
+app.route('/customer-registration').get((req, res) => {
+    res.render(`customer-registration`);
+});
+
 //Protected Routes
 
 //Credit Card application calculation
