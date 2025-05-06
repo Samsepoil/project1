@@ -81,7 +81,6 @@ app.route('/customer-registration')
                 });
             }
 
-            // Create new user
             const newUser = new UserAccount({
                 username,
                 name,
@@ -190,7 +189,7 @@ function determineLoanTerms(loanType, income, creditScore) {
     };
 }
 
-//Credit Card / Loan Application handling and writing to DB
+//Credit Card / Loan Application handling
 app.route('/application')
     .get(requireAuth, (req, res) => {
         res.render('application');
@@ -206,7 +205,7 @@ app.route('/application')
             if (type === 'credit-card') {
                 applicationDetails = determineCardTierAndTerms(income, creditScore);
 
-                // Create new credit card matching the schema
+                // Create new credit card
                 newProduct = new CreditCard({
                     user_id: userId,
                     card_type: applicationDetails.tier,
@@ -236,7 +235,7 @@ app.route('/application')
                     });
                 }
 
-                // Create new loan matching the schema
+                // Create new loan 
                 newProduct = new Loan({
                     user_id: userId,
                     loan_type: loanType,
@@ -247,7 +246,7 @@ app.route('/application')
                 });
             }
 
-            // Save both the application and the new product
+            // Save the application and the new product
             const newApplication = new Application({
                 username: req.session.user.username,
                 type,
@@ -284,7 +283,6 @@ app.route('/customer-login')
     .get((req, res) => {
         // Check if user is already logged in
         if (req.session && req.session.userId) {
-            // Redirect to dashboard if session exists
             return res.redirect('/dashboard');
         }
         // Otherwise show login page
