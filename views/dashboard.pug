@@ -11,14 +11,68 @@ html(lang="en")
           rel="stylesheet" 
           href="project.css"
          )
-    img.websiteicon(
-      alt="Evil Corporation" 
-      height="25%" 
-      src="ecorp.png"
-      )
-    body.home 
+    style.
+
+        h1 {
+            position: absolute;
+            color: red;
+            top: -150px;
+            text-align: center;
+            right: 250px;
+        }
+
+        h3 {
+            color: white;
+            text-align: center;
+            right: 250px;   
+            margin-bottom: 1em;
+            margin-top: 1em;
+            font-size: 35px;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+
+        }
+
+        h4 {
+            color: white;
+            text-align: center;
+            right: 250px;
+            margin-top: 1em;
+            font-size: 22.5px;
+            color: yellow;
+            
+        }
+
+        th {
+            color: white;
+            text-align: center;
+            margin-right: 2em;
+            margin-left: 2em;
+        }
+
+        td {
+            color: white;
+            text-align: center;
+            margin-right: 2em;
+            margin-left: 2em;
+        }
+        .dashboard-content {
+            position: relative;
+            top: 250px;
+        }
+
+        .account-summary {
+            font-size: 60px;
+        }
+
+    body.home  
+        img.websiteicon(
+            alt="Evil Corporation" 
+            height="25%" 
+            src="ecorp.png"
+            )
         h2#hiddenTruth vil Corporation
-        h1 Welcome #{user.name}
+
         nav.navbar-left
             ul
                 a.navmenu(href="/") 
@@ -27,7 +81,6 @@ html(lang="en")
                     li Withdraw/Deposit
                 a.navmenu(href="/logout") 
                     li Logout
-        h2 Quick Actions
         nav.navbar-right
             ul        
                 a.login(href="/transfer") 
@@ -35,19 +88,21 @@ html(lang="en")
                 a.login(href="/payment") 
                     li Make Payment
                 a.login(href="/application")
-                    li Apply for New Account   
-    main.dashboard-content
-        section.account-summary
-                h2 Account Summary
+                    li Apply for New Account
+
+    div.dashboard-content
+        h1 Welcome #{user.name}
+        section
+                h3.account-summary Account Summary
         if bankAccounts && bankAccounts.length
                 .bank-accounts
                 h3 Bank Accounts
         each account in bankAccounts
-                .account-card
+                div.account-card
                 h4 Account #{account.account_number}
-                p Balance: $#{account.balance}
+                p Balance: $#{account.balance}  
                 .transactions
-                h5 Recent Transactions  
+                h3 Recent Transactions  
                     if account.transactions && account.transactions.length
                 table
                     thead
@@ -85,7 +140,7 @@ html(lang="en")
                 p Interest Rate: #{loan.interest_rate}%
                     if loan.payment_schedule && loan.payment_schedule.length
                 .payment-schedule
-                h5 Payment Schedule
+                h3 Payment Schedule
                 table
                     thead
                         tr
@@ -98,8 +153,7 @@ html(lang="en")
                             td= new Date(payment.date).toLocaleDateString()
                             td= `$${payment.amount}`
                             td(class=payment.status.toLowerCase())= payment.status
-
-            
-
         footer
          p © 2024 E-Corp Bank. All rights reserved.
+
+//-Created by Adam Nielsen; CSS edits down by Rad Pena
