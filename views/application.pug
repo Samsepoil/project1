@@ -115,7 +115,6 @@ html(lang="en")
       h1(role="heading" aria-level="1") Credit Card/Loan Application
       form#applicationForm(
         method="POST" 
-        action="/submit-application"
         novalidate
       )
         div#formErrors(
@@ -139,23 +138,6 @@ html(lang="en")
               option(value="loan") Loan
             div.error(
               id="typeError"
-              aria-live="polite"
-            )
-          
-          div.form-group
-            label(for="accountId") Account Number:
-            input#accountId(
-              required
-              name="accountId"
-              type="text"
-              pattern="[A-Z0-9]{8}"
-              placeholder="Enter 8-digit Account Number"
-              aria-required="true"
-              aria-describedby="accountIdError"
-              title="Please enter 8 characters"
-            )
-            div.error(
-              id="accountIdError"
               aria-live="polite"
             )
           
@@ -228,6 +210,7 @@ html(lang="en")
         loanTypeGroup.style.display = 'none';
       });
 
+      // Form submission handler
       document.getElementById('applicationForm').addEventListener('submit', function(e) {
         e.preventDefault();
         let isValid = true;
@@ -252,39 +235,33 @@ html(lang="en")
           type.setAttribute('aria-invalid', 'false');
         }
 
-        // Account ID validation
-        const accountId = document.getElementById('accountId');
-        if (!accountId.value.match(/^[A-Z0-9]{8}$/)) {
-          const errorMessage = 'Account ID must be 8 characters (numbers only)';
-          accountId.nextElementSibling.textContent = errorMessage;
-          accountId.setAttribute('aria-invalid', 'true');
-          errors.push(errorMessage);
-          isValid = false;
-        } else {
-          accountId.setAttribute('aria-invalid', 'false');
-        }
-
         // Income validation
         const income = document.getElementById('income');
         if (!income.value) {
-         const errorMessage = 'Annual income is required';
-         income.nextElementSibling.textContent = errorMessage;
-         income.setAttribute('aria-invalid', 'true');
-         errors.push(errorMessage);
-         isValid = false;
+          const errorMessage = 'Annual income is required';
+          income.nextElementSibling.textContent = errorMessage;
+          income.setAttribute('aria-invalid', 'true');
+          errors.push(errorMessage);
+          isValid = false;
         } else if (income.value < 0) {
-         const errorMessage = 'Income cannot be negative';
-         income.nextElementSibling.textContent = errorMessage;
-         income.setAttribute('aria-invalid', 'true');
-         errors.push(errorMessage);
-         isValid = false;
+          const errorMessage = 'Income cannot be negative';
+          income.nextElementSibling.textContent = errorMessage;
+          income.setAttribute('aria-invalid', 'true');
+          errors.push(errorMessage);
+          isValid = false;
         } else {
-         income.setAttribute('aria-invalid', 'false');
+          income.setAttribute('aria-invalid', 'false');
         }
 
         // Credit Score validation
         const creditScore = document.getElementById('creditScore');
-        if (creditScore.value < 300 || creditScore.value > 850) {
+        if (!creditScore.value) {
+          const errorMessage = 'Credit score is required';
+          creditScore.nextElementSibling.textContent = errorMessage;
+          creditScore.setAttribute('aria-invalid', 'true');
+          errors.push(errorMessage);
+          isValid = false;
+        } else if (creditScore.value < 300 || creditScore.value > 850) {
           const errorMessage = 'Credit score must be between 300 and 850';
           creditScore.nextElementSibling.textContent = errorMessage;
           creditScore.setAttribute('aria-invalid', 'true');
@@ -306,21 +283,53 @@ html(lang="en")
         }
 
         if (errors.length > 0) {
-          errorSummary.innerHTML = `
-            <h2>Please correct the following errors:</h2>
-            <ul>
-              ${errors.map(error => `<li>${error}</li>`).join('')}
-            </ul>
-          `;
+          errorSummary.innerHTML = 
+            '<h2>Please correct the following errors:</h2><ul>' +
+            errors.map(error => '<li>' + error + '</li>').join('') +
+            '</ul>';
           errorSummary.classList.add('visible');
           errorSummary.focus();
+          return;
         }
 
         if (isValid) {
           const submitButton = document.querySelector('button[type="submit"]');
           submitButton.disabled = true;
           submitButton.innerHTML = 'Submitting...';
-          this.submit();
+
+          // Prepare the form data
+          const formData = {
+            type: type.value,
+            loanType: document.getElementById('loanType').value,
+            income: parseFloat(income.value),
+            creditScore: parseInt(creditScore.value)
+          };
+
+          // Submit using fetch
+          fetch('/application', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('Application approved! ' + data.message);
+              window.location.href = '/dashboard';
+            } else {
+              alert('Application error: ' + data.message);
+              submitButton.disabled = false;
+              submitButton.innerHTML = 'Submit';
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while submitting the application');
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Submit';
+          });
         }
       });
 
@@ -337,16 +346,7 @@ html(lang="en")
       });
 
       function exitApplication() {
-        const isLoggedIn = checkUserLoginStatus();
-        if (isLoggedIn) {
-          window.location.href = '/account';
-        } else {
-          window.location.href = '/';
-        }
-      }
-
-      function checkUserLoginStatus() {
-        return localStorage.getItem('userToken') !== null;
+        window.location.href = '/dashboard';
       }
 
 
