@@ -55,9 +55,70 @@ app.route('/loans').get((req, res) => {
     res.render('loans');
 });
 
-app.route('/customer-registration').get((req, res) => {
-    res.render(`customer-registration`);
-});
+app.route('/customer-registration')
+    .get((req, res) => {
+        res.render('customer-registration');
+    })
+    .post(async (req, res) => {
+        try {
+            const { username, name, email, password } = req.body;
+
+            // Check if username already exists
+            const existingUsername = await UserAccount.findOne({ username });
+            if (existingUsername) {
+                return res.json({
+                    success: false,
+                    message: 'Username already exists'
+                });
+            }
+
+            // Check if email already exists
+            const existingEmail = await UserAccount.findOne({ email });
+            if (existingEmail) {
+                return res.json({
+                    success: false,
+                    message: 'Email already registered'
+                });
+            }
+
+            // Create new user
+            const newUser = new UserAccount({
+                username,
+                name,
+                email,
+                password
+            });
+
+            await newUser.save();
+
+            // Generate a random 8-digit account number
+            const accountNumber = Math.floor(10000000 + Math.random() * 90000000).toString();
+
+            // Create a new bank account for the user
+            const newBankAccount = new BankAccount({
+                user_id: newUser._id,
+                account_number: accountNumber,
+                account_type: 'checking',
+                balance: mongoose.Types.Decimal128.fromString('10000.00'),
+                transactions: []
+            });
+
+            await newBankAccount.save();
+
+            res.json({
+                success: true,
+                message: 'Registration successful'
+            });
+
+        } catch (error) {
+            console.error('Registration error:', error);
+            res.status(500).json({
+                success: false,
+                message: 'An error occurred during registration'
+            });
+        }
+    });
+
 
 //Protected Routes
 

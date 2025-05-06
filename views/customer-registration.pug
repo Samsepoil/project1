@@ -6,7 +6,7 @@ html(lang="en")
       type="text/css" 
       rel="stylesheet" 
       href="project.css"
-      ) 
+    ) 
     style.
       body {
         display: flex;
@@ -18,7 +18,7 @@ html(lang="en")
         background-color: #f4f4f9; 
       }
 
-       .form-container {
+      .form-container {
         background-color: white;
         padding: 20px;
         border-radius: 8px;
@@ -79,26 +79,84 @@ html(lang="en")
       }
       
   body
-    h1.customer-reg Customer Registration
-    form(action="/register" method="POST")
-      div
-        label(for="username") Username:
-        input(type="text" id="username" name="username" required)
-      div
-        label(for="name") Name:
-        input(type="text" id="name" name="name" required)
-      div
-        label(for="email") Email:
-        input(type="email" id="email" name="email" required)
-      div
-        label(for="password") Password:
-        input(type="password" id="password" name="password" required)
+    div.form-container
+      h1.customer-reg Customer Registration
+      div#errorMessage(style="color: red; margin-bottom: 10px; display: none;")
+      form#registrationForm(action="/customer-registration" method="POST")
+        div
+          label(for="username") Username:
+          input(
+            type="text" 
+            id="username" 
+            name="username" 
+            required
+          )
+        div
+          label(for="name") Name:
+          input(
+            type="text" 
+            id="name" 
+            name="name" 
+            required
+          )
+        div
+          label(for="email") Email:
+          input(
+            type="email" 
+            id="email" 
+            name="email" 
+            required
+          )
+        div
+          label(for="password") Password:
+          input(
+            type="password" 
+            id="password" 
+            name="password" 
+            required
+          )
 
         div.button-group
           button(type="submit") Register
           button.button-exit(type="button" onclick="exitRegistration()") Exit
 
     script.
+      document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+          username: document.getElementById('username').value,
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        };
+
+        fetch('/customer-registration', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Registration successful! Please log in.');
+            window.location.href = '/customer-login';
+          } else {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = data.message;
+            errorDiv.style.display = 'block';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          const errorDiv = document.getElementById('errorMessage');
+          errorDiv.textContent = 'An error occurred during registration.';
+          errorDiv.style.display = 'block';
+        });
+      });
+
       function exitRegistration() {
-        window.location.href = '/'; // Redirect to homepage
+        window.location.href = '/';
       }
