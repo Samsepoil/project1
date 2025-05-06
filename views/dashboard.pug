@@ -1,94 +1,105 @@
 doctype html
 html(lang="en")
+    meta( 
+        content="width=device-width, initial-scale=1.0",
+        name="viewport"
+        )   
     head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title E-Corp Bank Dashboard
-        link(rel="stylesheet", href="/css/styles.css")
-    body
-        header.dashboard-header
-            h1 Welcome #{user.name}
-            nav.dashboard-nav
-                a(href="/") 
+        link(
+          type="text/css" 
+          rel="stylesheet" 
+          href="project.css"
+         )
+    img.websiteicon(
+      alt="Evil Corporation" 
+      height="25%" 
+      src="ecorp.png"
+      )
+    body.home 
+        h2#hiddenTruth vil Corporation
+        h1 Welcome #{user.name}
+        nav.navbar-left
+            ul
+                a.navmenu(href="/") 
                     li Home
-                a(href="/balance")
+                a.navmenu(href="/balance")
                     li Withdraw/Deposit
-                a(href="/dashboard") 
-                    li Dashboard
-                a(href="/logout") 
+                a.navmenu(href="/logout") 
                     li Logout
-
-        main.dashboard-content
-            section.account-summary
+        h2 Quick Actions
+        nav.navbar-right
+            ul        
+                a.login(href="/transfer") 
+                    li Transfer Money
+                a.login(href="/payment") 
+                    li Make Payment
+                a.login(href="/application")
+                    li Apply for New Account   
+    main.dashboard-content
+        section.account-summary
                 h2 Account Summary
+        if bankAccounts && bankAccounts.length
+                .bank-accounts
+                h3 Bank Accounts
+        each account in bankAccounts
+                .account-card
+                h4 Account #{account.account_number}
+                p Balance: $#{account.balance}
+                .transactions
+                h5 Recent Transactions  
+                    if account.transactions && account.transactions.length
+                table
+                    thead
+                        tr
+                            th Date
+                            th Description
+                            th Amount
+                        tbody
+                    each transaction in account.transactions
+                        tr
+                            td= new Date(transaction.date).toLocaleDateString()
+                            td= transaction.description
+                            td(class=transaction.amount < 0 ? 'negative' : 'positive')
+                                = `$${Math.abs(transaction.amount)}`
+        else
+            p No recent transactions
+        if creditCards && creditCards.length
+                .credit-cards
+        h3 Credit Cards
+        each card in creditCards
+                .card-info
+                h4 #{card.card_type}
+                p Balance: $#{card.balance}
+                p Credit Limit: $#{card.credit_limit}
+                p Interest Rate: #{card.interest_rate}%
 
-                if bankAccounts && bankAccounts.length
-                    .bank-accounts
-                        h3 Bank Accounts
-                        each account in bankAccounts
-                            .account-card
-                                h4 Account #{account.account_number}
-                                p Balance: $#{account.balance}
-                                .transactions
-                                    h5 Recent Transactions
-                                    if account.transactions && account.transactions.length
-                                        table
-                                            thead
-                                                tr
-                                                    th Date
-                                                    th Description
-                                                    th Amount
-                                            tbody
-                                                each transaction in account.transactions
-                                                    tr
-                                                        td= new Date(transaction.date).toLocaleDateString()
-                                                        td= transaction.description
-                                                        td(class=transaction.amount < 0 ? 'negative' : 'positive')
-                                                            = `$${Math.abs(transaction.amount)}`
-                                    else
-                                        p No recent transactions
+        if loans && loans.length
+                .loans
+        h3 Loans
+        each loan in loans  
+                .loan-info
+                h4 #{loan.loan_type} Loan
+                p Original Amount: $#{loan.loan_amount}
+                p Outstanding Balance: $#{loan.outstanding_balance}
+                p Interest Rate: #{loan.interest_rate}%
+                    if loan.payment_schedule && loan.payment_schedule.length
+                .payment-schedule
+                h5 Payment Schedule
+                table
+                    thead
+                        tr
+                            th Due Date
+                            th Amount
+                            th Status
+                    tbody
+                    each payment in loan.payment_schedule
+                        tr
+                            td= new Date(payment.date).toLocaleDateString()
+                            td= `$${payment.amount}`
+                            td(class=payment.status.toLowerCase())= payment.status
 
-                if creditCards && creditCards.length
-                    .credit-cards
-                        h3 Credit Cards
-                        each card in creditCards
-                            .card-info
-                                h4 #{card.card_type}
-                                p Balance: $#{card.balance}
-                                p Credit Limit: $#{card.credit_limit}
-                                p Interest Rate: #{card.interest_rate}%
+            
 
-                if loans && loans.length
-                    .loans
-                        h3 Loans
-                        each loan in loans
-                            .loan-info
-                                h4 #{loan.loan_type} Loan
-                                p Original Amount: $#{loan.loan_amount}
-                                p Outstanding Balance: $#{loan.outstanding_balance}
-                                p Interest Rate: #{loan.interest_rate}%
-                                if loan.payment_schedule && loan.payment_schedule.length
-                                    .payment-schedule
-                                        h5 Payment Schedule
-                                        table
-                                            thead
-                                                tr
-                                                    th Due Date
-                                                    th Amount
-                                                    th Status
-                                            tbody
-                                                each payment in loan.payment_schedule
-                                                    tr
-                                                        td= new Date(payment.date).toLocaleDateString()
-                                                        td= `$${payment.amount}`
-                                                        td(class=payment.status.toLowerCase())= payment.status
-
-            section.quick-actions
-                h2 Quick Actions
-                .action-buttons
-                    a.button(href="/transfer") Transfer Money
-                    a.button(href="/payment") Make Payment
-                    a.button(href="/application") Apply for New Account
-
-        footer.dashboard-footer
-            p © 2024 E-Corp Bank. All rights reserved.
+        footer
+         p © 2024 E-Corp Bank. All rights reserved.
