@@ -59,10 +59,6 @@ app.route('/loans').get((req, res) => {
     res.render('loans');
 });
 
-app.route('/mortgage').get((req, res) => {
-    res.render('mortgage');
-});
-
 app.route('/savings').get((req, res) => {
     res.render('savings');
 });
