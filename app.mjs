@@ -38,15 +38,14 @@ const requireAuth = (req, res, next) => {
     }
 };
 
-app.listen(1234, async() => {
-    console.log("Server is running...");
-});
-
 //Public Routes
 app.route('/').get((req, res) => {
     res.render('index');
 });
 
+app.route('/index').get((req, res) => {
+    res.render('index');
+});
 
 app.route('/balance').get((req, res) => {
     res.render('balance');
@@ -58,6 +57,10 @@ app.route('/checking').get((req, res) => {
 
 app.route('/loans').get((req, res) => {
     res.render('loans');
+});
+
+app.route('/mortgage').get((req, res) => {
+    res.render('mortgage');
 });
 
 app.route('/savings').get((req, res) => {
@@ -259,5 +262,45 @@ app.route('/customer-login')
         }
     });
 
-    
-    
+
+app.route('/dashboard')
+    .get(requireAuth, async (req, res) => {
+        try {
+            const user = await UserAccount.findById(req.session.userId);
+            if (!user) {
+                return res.redirect('/customer-login');
+            }
+
+            // Find user's bank accounts
+            const bankAccounts = await BankAccount.find({ user_id: user._id });
+            // Find user's credit cards
+            const creditCards = await CreditCard.find({ user_id: user._id });
+            // Find user's loans
+            const loans = await Loan.find({ user_id: user._id });
+
+            res.render('dashboard', {
+                user,
+                bankAccounts,
+                creditCards,
+                loans
+            });
+        } catch (error) {
+            console.error('Dashboard error:', error);
+            res.status(500).send('An error occurred');
+        }
+    });
+
+app.route('/logout')
+    .get(requireAuth, (req, res) => {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Logout error:', err);
+            }
+            res.redirect('/');
+        });
+    });
+
+//Start Server
+app.listen(1234, async () => {
+    console.log("Server is running...");
+});   
