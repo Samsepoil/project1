@@ -15,7 +15,7 @@ html(lang="en")
         height: 100vh; 
         margin: 0;
         font-family: Arial, sans-serif;
-        background-color: #f4f4f9; 
+        background-color:rgb(0, 0, 0); 
       }
 
       .form-container {
@@ -24,13 +24,14 @@ html(lang="en")
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         width: 100%;
-        max-width: 400px; 
+        max-width: 500px; 
       }
 
       .form-container h1 {
         text-align: center;
         margin-bottom: 20px;
-        color: #1a237e; 
+        color: #1a237e;
+        font-size: 45px;
       }
       .form-container div {
         margin-bottom: 15px;
@@ -43,7 +44,7 @@ html(lang="en")
       }
 
       input {
-        width: 100%;
+        width: 50%;
         padding: 10px;
         border: 1px solid #ddd;
         border-radius: 4px;
@@ -78,12 +79,17 @@ html(lang="en")
         margin-top: 30px; 
       }
       
+      .input-container {
+        text-align: center;
+        right: 250px;
+      }
+      
   body
     div.form-container
       h1.customer-reg Customer Registration
       div#errorMessage(style="color: red; margin-bottom: 10px; display: none;")
       form#registrationForm(action="/customer-registration" method="POST")
-        div
+        div.input-container
           label(for="username") Username:
           input(
             type="text" 
@@ -91,7 +97,7 @@ html(lang="en")
             name="username" 
             required
           )
-        div
+        div.input-container
           label(for="name") Name:
           input(
             type="text" 
@@ -99,7 +105,7 @@ html(lang="en")
             name="name" 
             required
           )
-        div
+        div.input-container
           label(for="email") Email:
           input(
             type="email" 
@@ -107,7 +113,7 @@ html(lang="en")
             name="email" 
             required
           )
-        div
+        div.input-container
           label(for="password") Password:
           input(
             type="password" 
