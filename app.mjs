@@ -262,5 +262,7 @@ app.route('/customer-login')
         }
     });
 
-      
+    app.listen(1234, async () => {
+        console.log("Server is running..."); //runs if server is running successfully
+    });
     
