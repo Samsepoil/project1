@@ -1,101 +1,130 @@
 meta(
   content="width=device-width, initial-scale=1.0" 
   name="viewport"
-  )
+)
 title Ecorp
 style.
   body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 20px;
-    }
-    .container {
+  }
+  .container {
     max-width: 400px;
     margin: auto;
-    }
-    button {
+  }
+  button {
     margin: 5px;
     padding: 10px 20px;
     font-size: 16px;
-    }
-    #errorMessage {
+  }
+  #errorMessage {
     color: red;
     font-weight: bold;
-    }
+  }
 body
   .container
     h1 E-Corp Bank
     h2
       | Current Balance: $
-      span#balance 0
+      span#balance #{currentBalance || '0.00'}
     p#errorMessage
-    // error message(s) for balance
     div
       h3 Deposit Amount
-      // section for deposits
       button(onclick="updateBalance(100)") + $100
       button(onclick="updateBalance(500)") + $500
       button(onclick="updateBalance(1000)") + $1000
     div
       h3 Withdraw Amount
-      // section for withdrawals
       button(onclick="updateBalance(-100)") - $100
       button(onclick="updateBalance(-500)") - $500
       button(onclick="updateBalance(-1000)") - $1000
     div
       h3 Custom Deposit Amount
-      // section for custom deposits
       input#DepositAmount(
         placeholder="Enter amount" 
         type="number"
-        )
+      )
       button(onclick="customDeposit()") Deposit
     div
       h3 Custom Withdraw Amount
       input#withdrawAmount(
         placeholder="Enter amount" 
         type="number"
-        )
+      )
       button(onclick="customWithdraw()") Withdraw
+          div(style="margin-top: 20px;")
+      
+          div(style="margin-top: 20px;")
+      
+      button(onclick="window.location.href='/dashboard'" style="background-color: #ff0000; color: white;") Return to Dashboard
+
+
   script.
-    let balance = 0;
-      const maxBalance = 10000; // max balance 
-      const minBalance = 0; // min balance 
-      const maxDeposit = 10000; // max deposit 
-      const maxWithdraw = 5000; // max withdrawal
-      function updateBalance(amount) {
+    let balance = parseFloat('#{currentBalance || 0}');
+    const maxBalance = 1000000; 
+    const minBalance = 0; 
+    const maxDeposit = 10000; 
+    const maxWithdraw = 5000; 
+
+    async function updateBalance(amount) {
       const errorMessageElement = document.getElementById("errorMessage");
-      // Check if the deposit exceeds the max depo lim
+      
+      // Client-side validations
       if (amount > 0 && amount > maxDeposit) {
-      errorMessageElement.innerText = (`You cannot deposit more than $${maxDeposit} at a time.`);
-      return;
+        errorMessageElement.innerText = `You cannot deposit more than $${maxDeposit} at a time.`;
+        return;
       }
-      // Check if the withdrawal exceeds the max withdrawal lim
       if (amount < 0 && Math.abs(amount) > maxWithdraw) {
-      errorMessageElement.innerText = (`You cannot withdraw more than $${maxWithdraw} at a time.`);
-      return;
+        errorMessageElement.innerText = `You cannot withdraw more than $${maxWithdraw} at a time.`;
+        return;
       }
-      // Check if the deposit exceeds the max balance
       if (amount > 0 && balance + amount > maxBalance) {
-      errorMessageElement.innerText = (`Cannot have more than $${maxBalance} in your account.`);
-      return;
+        errorMessageElement.innerText = `Cannot have more than $${maxBalance} in your account.`;
+        return;
       }
-      // Check if the withdrawal goes below the min balance
       if (amount < 0 && balance + amount < minBalance) {
-      errorMessageElement.innerText = ("Insufficient funds! Cannot withdraw more than your current balance.");
-      return;
+        errorMessageElement.innerText = "Insufficient funds! Cannot withdraw more than your current balance.";
+        return;
       }
-      // Update balance
-      balance += amount;
-      document.getElementById("balance").innerText = balance;
+
+      try {
+        const response = await fetch('/balance', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            amount: amount,
+            description: amount > 0 ? 'Deposit' : 'Withdrawal'
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          balance = parseFloat(data.newBalance);
+          document.getElementById("balance").innerText = balance.toFixed(2);
+          errorMessageElement.innerText = "";
+        } else {
+          errorMessageElement.innerText = data.message;
+        }
+      } catch (error) {
+        errorMessageElement.innerText = "Transaction failed. Please try again.";
       }
-      function customWithdraw() {
-      const amount = -Math.abs(parseInt(document.getElementById("withdrawAmount").value) || 0); // negative number must be used (-)
-      updateBalance(amount); //allows users to enter a custom amount to withdraw
-      }
-      function customDeposit() {
-      const amount = Math.abs(parseInt(document.getElementById("DepositAmount").value) || 0); // positive number must be used
-      updateBalance(amount); //allows users to enter a custom amount to deposit
-      }
+    }
+
+    function customWithdraw() {
+      const amount = -Math.abs(parseInt(document.getElementById("withdrawAmount").value) || 0);
+      updateBalance(amount);
+      document.getElementById("withdrawAmount").value = "";
+    }
+
+    function customDeposit() {
+      const amount = Math.abs(parseInt(document.getElementById("DepositAmount").value) || 0);
+      updateBalance(amount);
+      document.getElementById("DepositAmount").value = "";
+    }
+
+
 
 //-Fransisco Cruz & Adam Nielsen

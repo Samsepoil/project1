@@ -43,9 +43,71 @@ app.route('/').get((req, res) => {
     res.render('index');
 });
 
-app.route('/balance').get((req, res) => {
-    res.render('balance');
-});
+app.route('/balance')
+    .get(async (req, res) => {
+        if (!req.session.userId) {
+            return res.redirect('/customer-login');
+        }
+        try {
+            const bankAccount = await BankAccount.findOne({ user_id: req.session.userId });
+            if (!bankAccount) {
+                return res.render('balance', { error: 'Bank account not found' });
+            }
+            res.render('balance', { currentBalance: bankAccount.balance.toString() });
+        } catch (error) {
+            console.error('Error fetching balance:', error);
+            res.render('balance', { error: 'Error fetching balance' });
+        }
+    })
+    .post(async (req, res) => {
+        if (!req.session.userId) {
+            return res.json({ success: false, message: 'Not logged in' });
+        }
+
+        try {
+            const { amount, description } = req.body;
+
+            // Use findOneAndUpdate instead of findOne
+            const bankAccount = await BankAccount.findOne({ user_id: req.session.userId });
+
+            if (!bankAccount) {
+                return res.json({ success: false, message: 'Bank account not found' });
+            }
+
+            const currentBalance = parseFloat(bankAccount.balance.toString());
+            const newBalance = currentBalance + parseFloat(amount);
+
+            // Server-side validation
+            if (newBalance < 0) {
+                return res.json({ success: false, message: 'Insufficient funds' });
+            }
+
+            // Update only the balance and transactions
+            const updatedBankAccount = await BankAccount.findOneAndUpdate(
+                { user_id: req.session.userId },
+                {
+                    $set: { balance: mongoose.Types.Decimal128.fromString(newBalance.toString()) },
+                    $push: {
+                        transactions: {
+                            date: new Date(),
+                            amount: mongoose.Types.Decimal128.fromString(amount.toString()),
+                            description: description || (amount > 0 ? 'Deposit' : 'Withdrawal')
+                        }
+                    }
+                },
+                { new: true } // Return the updated document
+            );
+
+            res.json({
+                success: true,
+                newBalance: updatedBankAccount.balance.toString(),
+                message: 'Transaction successful'
+            });
+        } catch (error) {
+            console.error('Transaction error:', error);
+            res.json({ success: false, message: 'Transaction failed' });
+        }
+    });
 
 app.route('/checking').get((req, res) => {
     res.render('checking');
