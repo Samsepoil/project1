@@ -8,3 +8,5 @@ const userAccountSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('UserAccount', userAccountSchema);
+
+//Adam Nielsen & Ethan Long

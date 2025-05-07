@@ -15,4 +15,4 @@ async function connectDB() {
 
 export default connectDB;
 
-/*Ethan Long*/
+// Ethan Long & Adam Nielsen

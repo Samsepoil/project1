@@ -15,3 +15,5 @@ const bankAccountSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('BankAccount', bankAccountSchema);
+
+//Adam Nielsen & Ethan Long

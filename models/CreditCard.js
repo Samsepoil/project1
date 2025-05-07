@@ -9,3 +9,5 @@ const creditCardSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('CreditCard', creditCardSchema);
+
+//Adam Nielsen & Ethan Long

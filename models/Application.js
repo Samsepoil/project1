@@ -17,3 +17,5 @@ const applicationSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('Application', applicationSchema);
+
+//Adam Nielsen & Ethan Long
