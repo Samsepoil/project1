@@ -17,4 +17,4 @@ const loanSchema = new mongoose.Schema({
 
 export default mongoose.model('Loan', loanSchema);
 
-//Adam Nielsen & Ethan Long
+//Adam Nielsen

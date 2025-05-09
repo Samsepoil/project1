@@ -1,9 +1,9 @@
-import express from 'express'; // Import express module to run local server
-import http from 'http'; // Import 'http' module
-import qString from 'querystring'; // Import 'querystring' module
-import bodyParser from 'body-parser'; // middleware for parsing bodys of info
-import session from 'express-session'; // session middleware that allows for express sessions
-import crypto from 'crypto'; // for simple encryption 'genHash' of passwords
+import express from 'express'; 
+import http from 'http'; 
+import qString from 'querystring'; 
+import bodyParser from 'body-parser'; 
+import session from 'express-session'; 
+import crypto from 'crypto'; 
 import mongoose from 'mongoose';
 import connectDB from './database.js';
 import UserAccount from './models/UserAccount.js';
@@ -20,7 +20,7 @@ app.set('views', './views'); // sets views directory for express app
 app.set('view engine', 'pug'); // sets the view engine for the express server to pug(can serve pug and html mixed)
 app.use(express.static('public')); // sets the static folder to 'public'; needed to call files in html and js
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false })); // Middleware to parse the body
+app.use(bodyParser.urlencoded({ extended: false })); 
 
 //Session middleware
 app.use(session({
@@ -95,7 +95,7 @@ app.route('/balance')
                         }
                     }
                 },
-                { new: true } // Return the updated document
+                { new: true }
             );
 
             res.json({
@@ -152,7 +152,6 @@ app.route('/customer-registration')
 
             await newUser.save();
 
-            // Generate a random 8-digit account number
             const accountNumber = Math.floor(10000000 + Math.random() * 90000000).toString();
 
             // Create a new bank account for the user
@@ -192,7 +191,6 @@ function determineCardTierAndTerms(income, creditScore) {
     const incomeWeight = Math.min(income / 1000000, 1); // Cap income weight at 1M
     const combinedScore = (scoreWeight + incomeWeight) / 2;
 
-    // Rest of the function remains the same
     if (combinedScore >= 0.8) {
         tier = 'Platinum';
         creditLimit = Math.min(income * 0.4, 50000);
@@ -323,7 +321,6 @@ app.route('/application')
                 newProduct.save()
             ]);
 
-            // Send back approval details
             res.json({
                 success: true,
                 message: 'Application approved!',
@@ -338,8 +335,6 @@ app.route('/application')
             });
         }
     });
-
-
 
 app.route('/customer-login')
     .get((req, res) => {
